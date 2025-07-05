@@ -110,6 +110,9 @@ handle_normal_irq:
 	cmp r2, r0
 	bne .L_irq_no_sub_thread
 
+	mov r0, #SUBTHRED_BREAK_FROM_IRQ
+	strb r0, [r1, #oThreadInfo_sub_thread_break_reason]
+
 	// save the sub-thread irq lr
 	// which is the address where the thread needs to resume
 	// we have to push this first as due to register issues
@@ -142,7 +145,7 @@ handle_normal_irq:
 	push {r0,r2,r4,r5,r6}
 
 	// main thread was restored, so mark in sub thread as false
-	mov r0, #0xff
+	mov r0, #INVALID_SUBTHREAD_RUNNING_MODE
 	strb r0, [r1, #oThreadInfo_sub_thread_running]
 
 	// save the sub-thread stack pointer

@@ -8,6 +8,7 @@ extern u32 IntrMain_Buffer[0x200];
 void DummyIRQRoutine(void);
 
 extern void IrqMain_CHAX(void);
+extern void kthread_test(void);
 
 // lynjump
 void StoreIRQToIRAM(void)
@@ -26,6 +27,9 @@ void StoreIRQToIRAM(void)
 	INTR_VECTOR = IntrMain_Buffer;
 
 	// CHAX
-	gThreadInfo.sub_thread_running = 0xFF;
+	gThreadInfo.sub_thread_running = INVALID_SUBTHREAD_RUNNING_MODE;
 	gThreadInfo.sub_thread_state = SUBTHREAD_NONE;
+
+	// test
+	CreateSubThread(kthread_test);
 }
