@@ -3,4 +3,5 @@
 ORG FreeSpace
 #endif
 
+#include "Extensions/Hack Installation.txt"
 #include "wizardry/wizardry.event"

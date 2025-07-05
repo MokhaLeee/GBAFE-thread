@@ -2,4 +2,4 @@ ALIGN 4
 #include "DebugKit/DebugKit.event"
 
 /* DIY your own functions! */
-#include "StatusGetterHack/Unit.lyn.event"
+#include "Thread/thread.event"

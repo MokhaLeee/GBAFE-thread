@@ -1,1 +1,4 @@
 dat 0x02026E30, FreeRamSpaceEntry
+
+dat 0x02026E30, gThreadInfo
+dat 0x02040000, SUB_THREAD_STACK_BASE
