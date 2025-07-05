@@ -9,7 +9,7 @@ void VBlankIntrWaitRework(void)
 {
 	u32 vcount = REG_VCOUNT;
 
-	if (vcount >= 157 && vcount < 163) {
+	if (vcount >= 140) {
 		_VBlankIntrWait();
 		return;
 	}

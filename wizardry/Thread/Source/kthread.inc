@@ -3,3 +3,5 @@
 .equiv oThreadInfo_main_thread_sp, 0x04
 .equiv oThreadInfo_sub_thread_sp, 0x08
 .equiv oThreadInfo_func, 0x0C
+
+.equiv DEFAULT_SUBTHREAD_RUNNING_MODE, 0x00

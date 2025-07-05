@@ -22,7 +22,7 @@ start_sub_thread_arm:
 	ldr sp, =SUB_THREAD_STACK_BASE
 
 	# Add a mark for IRQ handler
-	mov r1, #0x10
+	mov r1, #DEFAULT_SUBTHREAD_RUNNING_MODE
 	strb r1, [r0, #oThreadInfo_sub_thread_running]
 
 	# jump to thread
@@ -48,10 +48,10 @@ resume_sub_thread_arm:
 	push {r0-r3, r12, lr}
 
 	ldr r0, =gThreadInfo
-	str sp, [r0, #oThreadInfo_sub_thread_sp]
-	ldr sp, [r0, #oThreadInfo_main_thread_sp]
+	str sp, [r0, #oThreadInfo_main_thread_sp]
+	ldr sp, [r0, #oThreadInfo_sub_thread_sp]
 
-	mov r1, #0x10
+	mov r1, #DEFAULT_SUBTHREAD_RUNNING_MODE
 	strb r1, [r0, #oThreadInfo_sub_thread_running]
 
 	pop {r0-r3, r12}
