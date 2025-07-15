@@ -1,8 +1,50 @@
-#include "gbafe.h"
+#include "debug-kit.h"
 #include "kthread.h"
 
-void kthread_test(void)
+#define CONFIG_DEBUG_THREAD_SCHEDULER
+
+static void SubTask_PlayPhaseTest(void)
 {
-	while (1)
-		YieldSubThread();
+	enum { LOCAL_TRIGG = 1000 };
+
+	u32 total = 0;
+	u32 cnt = 0;
+	u32 rn = NextRN_N(LOCAL_TRIGG);
+
+	while (1) {
+		total++;
+		cnt++;
+
+		Printf("trace loop 0x%04X, total 0x%08X", cnt, total);
+
+		if (cnt > rn) {
+			// Printf("trace loop 0x%04X, total 0x%08X", cnt, total);
+
+			cnt = 0;
+			rn = NextRN_N(LOCAL_TRIGG);
+			// YieldSubThread();
+		}
+	}
+}
+
+// external hook
+void PlayerPhase_InitUnitMovementSelectRework(void)
+{
+#ifdef CONFIG_DEBUG_THREAD_SCHEDULER
+	CreateSubThread(SubTask_PlayPhaseTest);
+#endif
+
+	PlayerPhase_InitUnitMovementSelect();
+}
+
+// external hook
+void PlayerPhase_RangeDisplayIdleRework(struct Proc *proc)
+{
+	PlayerPhase_RangeDisplayIdle(proc);
+
+	if (proc->proc_idleCb == NULL) {
+#ifdef CONFIG_DEBUG_THREAD_SCHEDULER
+		RemoveSubThread(SubTask_PlayPhaseTest);
+#endif
+	}
 }

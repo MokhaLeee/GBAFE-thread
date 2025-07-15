@@ -19,7 +19,6 @@ enum {
 	SUBTHRED_BREAK_FROM_NORMAL = 1,
 };
 
-
 struct ThreadInfo {
 	u8 sub_thread_running;
 	u8 sub_thread_state;
@@ -36,8 +35,7 @@ struct ThreadInfo {
 extern struct ThreadInfo gThreadInfo;
 
 void CreateSubThread(thread_task_func func);
+void RemoveSubThread(thread_task_func func);
 void YieldSubThread(void);
 
-void start_sub_thread(void);
-void resume_sub_thread(void);
-void yield_sub_thread(void);
+void dump_sub_thread_stack(void);
